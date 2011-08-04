@@ -13,6 +13,8 @@ cursor = db.cursor()
 #print "<title>Buch hinzufügen</title>"
 
 if not form.has_key('autor'):
+    print "Content-type: text; charset=utf-8"
+    print 
     print "ERROR"
     exit()
      

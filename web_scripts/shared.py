@@ -58,8 +58,8 @@ class Buch:
             self.ort      ,
             self.spalte   ,
             self.zeile    ,
-            self.autor    ,
-            self.titel    ,
+            self.autor.replace('"', '\\"').replace("'", "\\'"),
+            self.titel.replace('"', '\\"').replace("'", "\\'"),
             self.sprache  ,
             self.eigner   ,
             self.buch_art 
@@ -84,8 +84,8 @@ class Buch:
             self.ort      ,
             self.spalte   ,
             self.zeile    ,
-            self.autor    ,
-            self.titel    ,
+            self.autor.replace('"', '\\"').replace("'", "\\'"),
+            self.titel.replace('"', '\\"').replace("'", "\\'"),
             self.sprache  ,
             self.eigner   ,
             self.buch_art ,
@@ -133,7 +133,8 @@ def get_lang(sp):
       5 : 'sw',
       6 : 'altdeutsch',
       7 : 'de/en',
-      8 : 'de/fr'
+      8 : 'de/fr',
+      9 : 'it'
     }
     return lang_dic[sp]
 
