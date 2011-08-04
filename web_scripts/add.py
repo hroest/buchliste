@@ -3,6 +3,7 @@
 import cgitb; cgitb.enable()
 import MySQLdb, sys
 import cgi
+import shared
 form = cgi.FieldStorage()  
 db = MySQLdb.connect(read_default_file="/home/hroest_admin/.buch.cnf")
 cursor = db.cursor()
@@ -66,10 +67,13 @@ print """
     <p>
     <label for="buch_art">Art des Buches</label>
     <input type="text" name="buch_art" value=""> 
+    %s
     </p>
 
     <INPUT type="submit" value="Abschicken"> 
 </FORM>
-"""
+""" % (
+            shared.get_types_print(db),
+            )
 
 print "<hr><a href='index.py'>Zurück</a>"

@@ -122,6 +122,21 @@ def print_list(mylist):
 
     print "</table>"
 
+
+def get_types_print(db):
+    s = ''
+    types = get_types(db)
+    for t in types:
+        s += t + ', '
+    result =  '(%s)' % s[:-2]
+    return result
+
+def get_types(db):
+    cursor = db.cursor()
+    cursor.execute( "select distinct buch_art from buch.buch")
+    return [r[0] for r in cursor.fetchall()]
+
+
 def get_lang(sp):
     lang_dic = {
       0 : 'other',

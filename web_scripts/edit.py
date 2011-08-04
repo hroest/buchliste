@@ -75,6 +75,7 @@ print """
     <p>
     <label for="buch_art">Art des Buches</label>
     <input type="text" name="buch_art" value="%s"> 
+    %s
     </p>
 
     <input type="hidden" id="id" name="id" value="%s" />
@@ -91,6 +92,7 @@ print """
             buch.sprache  ,
             buch.eigner   ,
             buch.buch_art ,
-            buch.myid 
+            shared.get_types_print(db),
+            buch.myid     ,
                 )
 
