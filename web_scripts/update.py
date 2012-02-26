@@ -12,10 +12,10 @@ cursor = db.cursor()
 
 #print "<title>Buch hinzufügen</title>"
 
-if not form.has_key('autor'):
+if not form.has_key('autor_lastname'):
     print "Content-type: text; charset=utf-8"
     print 
-    print "ERROR"
+    print "ERROR - no autor lastname"
     exit()
      
 myid = int(form.getvalue('id') )

@@ -15,6 +15,8 @@ class Buch:
         self.sprache  =   res[7]
         self.eigner   =   res[8]
         self.buch_art =   res[9]
+        self.autor_firstname    =   res[10]
+        self.autor_lastname    =   res[11]
 
     def read_object(self, other):
         self.zimmer   =  other.zimmer      
@@ -26,6 +28,8 @@ class Buch:
         self.sprache  =  other.sprache  
         self.eigner   =  other.eigner   
         self.buch_art =  other.buch_art 
+        self.autor_firstname    =  other.autor_firstname
+        self.autor_lastname    =  other.autor_lastname
 
     def read_form(self, form):
         self.zimmer   =       form.getvalue('zimmer'  )
@@ -37,12 +41,16 @@ class Buch:
         self.sprache  =   int(form.getvalue('sprache' ))
         self.eigner   =       form.getvalue('eigner'  )
         self.buch_art =       form.getvalue('buch_art')
+        self.autor_firstname    =       form.getvalue('autor_firstname'   )
+        self.autor_lastname    =       form.getvalue('autor_lastname'   )
+        if self.autor_firstname is None: self.autor_firstname = ''
 
     def read_db(self, db, myid):
         c = db.cursor()
         query = """select
         id, zimmer, ort, spalte, zeile, 
-        autor, titel , sprache , eigner , buch_art 
+        autor, titel , sprache , eigner , buch_art ,
+        autor_firstname, autor_lastname
         from buch.buch where id  = %s""" % myid 
         c.execute( query )
         res = c.fetchone()
@@ -51,18 +59,21 @@ class Buch:
     def create(self, db):
         c = db.cursor()
         query = """INSERT INTO buch.buch 
-        (zimmer, ort, spalte , zeile , autor, titel , sprache , eigner , buch_art )
-        VALUES ('%s', '%s', %d, %d, '%s', '%s', %d, '%s', '%s')
+        (zimmer, ort, spalte , zeile , titel , sprache , eigner , 
+        buch_art, autor_firstname, autor_lastname )
+        VALUES ('%s', '%s', %d, %d,  '%s', %d, '%s', '%s', '%s', '%s')
                 """ % (
             self.zimmer   ,
             self.ort      ,
             self.spalte   ,
             self.zeile    ,
-            self.autor.replace('"', '\\"').replace("'", "\\'"),
+            #self.autor.replace('"', '\\"').replace("'", "\\'"),
             self.titel.replace('"', '\\"').replace("'", "\\'"),
             self.sprache  ,
             self.eigner   ,
-            self.buch_art 
+            self.buch_art ,
+            self.autor_firstname.replace('"', '\\"').replace("'", "\\'"),
+            self.autor_lastname.replace('"', '\\"').replace("'", "\\'"),
                 )
         c.execute( query )
 
@@ -77,7 +88,9 @@ class Buch:
         titel    = '%s',
         sprache  = '%s',
         eigner   = '%s',
-        buch_art = '%s'
+        buch_art = '%s',
+        autor_firstname    = '%s',
+        autor_lastname    = '%s'
         where id  = %s
                 """ % (
             self.zimmer   ,
@@ -89,8 +102,11 @@ class Buch:
             self.sprache  ,
             self.eigner   ,
             self.buch_art ,
+            self.autor_firstname.replace('"', '\\"').replace("'", "\\'"),
+            self.autor_lastname.replace('"', '\\"').replace("'", "\\'"),
             self.myid 
                 )
+        #print query
         c.execute( query )
 
 def print_list(mylist):
@@ -112,7 +128,7 @@ def print_list(mylist):
         print "<td>%s</td>" % l.ort
         print "<td>%s</td>" % l.spalte
         print "<td>%s</td>" % l.zeile
-        print "<td style='text-align:left;border-left:10px solid white'>%s</td>" % l.autor
+        print "<td style='text-align:left;border-left:10px solid white'>%s</td>" % (l.autor_lastname + ', ' + l.autor_firstname )
         print "<td style='text-align:left;border-left:10px solid white'>%s</td>" % l.titel
         print "<td>%s</td>" % get_lang(l.sprache)
         print "<td>%s</td>" % l.eigner

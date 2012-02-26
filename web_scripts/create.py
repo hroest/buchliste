@@ -9,7 +9,7 @@ db = MySQLdb.connect(read_default_file="/home/hroest_admin/.buch.cnf")
 cursor = db.cursor()
 
 
-if not form.has_key('autor'):
+if not form.has_key('autor_lastname'):
     print "ERROR"
     exit()
      

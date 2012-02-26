@@ -32,3 +32,7 @@ enclosed by '"'
 insert into buch  (ort  , spalte , zeile , autor, titel , sprache , eigner ,
     buch_art ) select * from buch_tmp where not titel = '';  
 
+
+alter table buch add column autor_firstname text;
+alter table buch add column autor_lastname text;
+

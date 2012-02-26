@@ -45,8 +45,13 @@ print """
     </p>
 
     <p>
-    <label for="autor">Autor</label>
-    <input type="text" name="autor" value="%s"> 
+    <label for="autor">Autor Nachname</label>
+    <input type="text" name="autor_lastname" value="%s"> 
+    </p>
+
+    <p>
+    <label for="autor">Autor Vorname</label>
+    <input type="text" name="autor_firstname" value="%s"> 
     </p>
 
     <p>
@@ -79,6 +84,7 @@ print """
     </p>
 
     <input type="hidden" id="id" name="id" value="%s" />
+    <input type="hidden" id="autor" name="autor" value="%s" />
 
     <INPUT type="submit" value="Abschicken"> 
 </FORM>
@@ -87,12 +93,14 @@ print """
             buch.ort      ,
             buch.spalte   ,
             buch.zeile    ,
-            buch.autor    ,
+            buch.autor_lastname    ,
+            buch.autor_firstname    ,
             buch.titel    ,
             buch.sprache  ,
             buch.eigner   ,
             buch.buch_art ,
             shared.get_types_print(db),
             buch.myid     ,
+            buch.autor     ,
                 )
 

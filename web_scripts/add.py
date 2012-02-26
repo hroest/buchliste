@@ -37,8 +37,13 @@ print """
     </p>
 
     <p>
-    <label for="autor">Autor</label>
-    <input type="text" name="autor" value=""> 
+    <label for="autor">Autor Nachname</label>
+    <input type="text" name="autor_lastname" value=""> 
+    </p>
+
+    <p>
+    <label for="autor">Autor Vorname</label>
+    <input type="text" name="autor_firstname" value=""> 
     </p>
 
     <p>
@@ -69,6 +74,8 @@ print """
     <input type="text" name="buch_art" value=""> 
     %s
     </p>
+
+    <input type="hidden" id="autor" name="autor" value="" />
 
     <INPUT type="submit" value="Abschicken"> 
 </FORM>
