@@ -78,6 +78,8 @@ class Buch:
         c.execute( query )
 
     def update(self, db):
+        if self.autor is None: self.autor = "" 
+        if self.titel is None: self.titel = "" 
         c = db.cursor()
         query = """ UPDATE buch.buch SET 
         zimmer   = '%s',
