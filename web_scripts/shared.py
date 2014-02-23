@@ -15,8 +15,8 @@ class Buch:
         self.sprache  =   res[7]
         self.eigner   =   res[8]
         self.buch_art =   res[9]
-        self.autor_firstname    =   res[10]
-        self.autor_lastname    =   res[11]
+        self.autor_firstname  =   res[10].strip()
+        self.autor_lastname   =   res[11].strip()
 
     def read_object(self, other):
         self.zimmer   =  other.zimmer      
@@ -78,8 +78,10 @@ class Buch:
         c.execute( query )
 
     def update(self, db):
-        if self.autor is None: self.autor = "" 
-        if self.titel is None: self.titel = "" 
+        if self.autor is None: self.autor = ""
+        if self.titel is None: self.titel = ""
+        if self.autor_firstname is None: self.autor_firstname = ""
+        if self.autor_lastname is None: self.autor_lastname = ""
         c = db.cursor()
         query = """ UPDATE buch.buch SET 
         zimmer   = '%s',
@@ -111,6 +113,22 @@ class Buch:
         #print query
         c.execute( query )
 
+    def get_author_display(self):
+        #try:
+        if len(self.autor_firstname.split(",")) != len(self.autor_lastname.split(",")):
+            # our best guess of what the user wanted
+            return self.autor_firstname + ' ' + self.autor_lastname 
+
+        res = ""
+        for f,l in zip(self.autor_firstname.split(","), self.autor_lastname.split(",")):
+            res += f + " " + l + " & "  
+        
+        # remove the last ampersand
+        if len(res) > 0:
+            res = res[:-3]
+        return res
+
+
 def print_list(mylist):
     print '<table style="text-align:center;">'
     print """<tr >
@@ -130,7 +148,7 @@ def print_list(mylist):
         print "<td>%s</td>" % l.ort
         print "<td>%s</td>" % l.spalte
         print "<td>%s</td>" % l.zeile
-        print "<td style='text-align:left;border-left:10px solid white'>%s</td>" % (l.autor_lastname + ', ' + l.autor_firstname )
+        print "<td style='text-align:left;border-left:10px solid white'>%s</td>" % (l.get_author_display())
         print "<td style='text-align:left;border-left:10px solid white'>%s</td>" % l.titel
         print "<td>%s</td>" % get_lang(l.sprache)
         print "<td>%s</td>" % l.eigner

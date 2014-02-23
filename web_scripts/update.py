@@ -7,16 +7,6 @@ import shared
 form = cgi.FieldStorage()  
 db = MySQLdb.connect(read_default_file="/home/hroest_admin/.buch.cnf")
 cursor = db.cursor()
-#print "Content-type: text/html; charset=utf-8"
-#print ""
-
-#print "<title>Buch hinzufügen</title>"
-
-if not form.has_key('autor_lastname'):
-    print "Content-type: text; charset=utf-8"
-    print 
-    print "ERROR - no autor lastname"
-    exit()
      
 myid = int(form.getvalue('id') )
 buch = shared.Buch()
